@@ -1,5 +1,6 @@
 
-import * as basicLightbox from 'basiclightbox'
+import {v4} from 'uuid';
+import * as basicLightbox from 'basiclightbox';
 import _ from 'lodash';
 import './style.css';
 import printMe from './print.js';
@@ -18,6 +19,7 @@ const modal = basicLightbox.create(`
         <button>Close</buton>
     </div>
 `)
+console.log(modal);
 
 const refs = {
     list: document.querySelector('.list'),
@@ -27,6 +29,7 @@ const refs = {
     // modalImg: modal.element().querySelector('.modal-img'),
 
   };
+console.log(refs.modalText);
 
 const render = () => {
   // const lis = items.map((item) => Item(item));
@@ -64,7 +67,7 @@ const lis = items.map(item => getItemTemplate(item));
 const addItem =  (text) => {  
  
   const payload = {
-    id: uuid.v4(),
+    id: v4(),
     text,
     isDone: false,
     created: new Date(),
@@ -162,7 +165,7 @@ refs.modalButton.addEventListener('click', modal.close);
 //  ============= модалка basicLightbox
 // console.log(modal);
 // setTimeout (() => {
-//   modal.close();}, 2000);
+// modal.close();}, 2000);
 // console.log(modal.element().querySelector('button'));
 
 // ======================= ССЫЛКА РУКАМИ

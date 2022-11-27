@@ -3,12 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
+  context: path.resolve(__dirname, 'src'),
   entry: {
-    index: './src/index.js',
-    print: './src/print.js',
+    index: './index.js',
+    print: './print.js',
   },  devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
+      template: './index.html',
       title: 'Output Management',
     }),
   ],

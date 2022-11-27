@@ -20,6 +20,8 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "basiclightbox": "^5.0.4",
+    "lodash": "^4.17.21",
+    "uuidv4": "^6.2.13"
   }
 }

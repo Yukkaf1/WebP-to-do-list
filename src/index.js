@@ -6,11 +6,36 @@ import './style.css';
 import printMe from './print.js';
 
 
-import {getItemTemplate} from './getItemTemplate.js';
-import {items as importedItems } from './items.js';
+import {getItemTemplate} from './getItemTemplate';
+// import {items as importedItems } from './items';
 import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
 
-let items = importedItems;
+let items = [];
+
+const createTodo = playload => {
+// console.log(playload);
+localStorage.setItem('todos', JSON.stringify(playload));
+};
+
+const fatchTodos = () => {
+  try {
+  const data = JSON.parse(localStorage.getItem('todos'));
+  return data || [];
+  } catch(error) {
+    console.log('cant load todos');
+    return [];
+  };
+  // return data || []; // когда пустой локал
+};
+
+const updateTodos = (playload) => {
+  localStorage.setItem('todos', JSON.stringify(playload));
+};
+
+const deleteTodos = (playload) => {
+  localStorage.setItem('todos', JSON.stringify(playload));
+}
+
 
 const modal = basicLightbox.create(`
     <div class="modal">
@@ -65,16 +90,8 @@ const lis = items.map(item => getItemTemplate(item));
 // ================== КОРОЧЕ ЧИЩЕ
 
 
-const addItem =  (text) => {  
- 
-  const payload = {
-    id: v4(),
-    text,
-    isDone: false,
-    created: new Date(),
-  }
-  
-  items.push(payload);
+const addItem =  (item) => {  
+  items.push(item);
   };
 
 const handleSubmit = (e) => {
@@ -86,9 +103,16 @@ const handleSubmit = (e) => {
   // } = e.target.element; // двойная деструктуризация - плохо
 
   const {value} = e.target.elements.text
+  const payload = {
+    id: v4(),
+    text: value,
+    isDone: false,
+    created: new Date(),
+  };
 
   e.preventDefault();
-  addItem (value);
+  addItem (payload);
+  createTodo(items);
   render();
   refs.form.reset(); // чистим форму
 };
@@ -100,9 +124,9 @@ items = items.map(item => item.id === id
   isDone: !item.isDone,
 }
 : item);
-
-console.log('toggle', id);
-console.table(items);
+updateTodos(items);
+// console.log('toggle', id);
+// console.table(items);
 };
 
 const viewItem = (id) => {
@@ -119,6 +143,7 @@ const deleteItem = (id) => {
 console.log('delete', id)
 items = items.filter(item => item.id !== id);
 render();
+deleteTodos(items);
 };
 
 const handleListClick = (e) => {
@@ -152,6 +177,19 @@ switch (action) {
 // console.log(action);
 };
 
+const handleKezPress = ({code}) => {
+  if (code === 'Escape' && modal.visible()) {
+    modal.close();
+  }
+};
+
+const loadData = () => {
+
+  items = fatchTodos();
+  // console.log(fatchTodos());
+};
+
+loadData();
 render();
 
 
@@ -162,6 +200,7 @@ refs.list.addEventListener('click', handleListClick)
 
 refs.modalButton.addEventListener('click', modal.close);
 
+window.addEventListener('keydown', handleKezPress);
 
 //  ============= модалка basicLightbox
 // console.log(modal);

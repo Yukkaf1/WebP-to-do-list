@@ -7,7 +7,8 @@ import printMe from './print.js';
 
 
 import {getItemTemplate} from './getItemTemplate.js';
-import {items as importedItems } from './items.js'
+import {items as importedItems } from './items.js';
+import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
 
 let items = importedItems;
 

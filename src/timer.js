@@ -1,5 +1,7 @@
+
+
 const getTimer = () =>  ` 
-<div>
+<div class="timer">
 <span class="value"> yyyy-mm-dd hh:mm:ss </span>
 <button data-action="start">start</button>
 <button data-action="stop" disabled>stop</button>
@@ -12,6 +14,7 @@ export class Timer {
         this.parent = document.querySelector(selector);
         // console.log(this.parent);
         this.parent.insertAdjacentHTML('beforeend', getTimer());
+        
         this.valueSpan = this.parent.querySelector('.value');
         this.startButton = document.querySelector('[data-action="start"]');
         this.stopButton = document.querySelector('[data-action="stop"]');

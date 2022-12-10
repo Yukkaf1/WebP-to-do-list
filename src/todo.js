@@ -4,6 +4,7 @@ import * as basicLightbox from 'basiclightbox';
 import _ from 'lodash';
 import './style.css';
 import printMe from './print.js';
+import moment from 'moment';
 
 
 import {getItemTemplate} from './getItemTemplate';
@@ -134,7 +135,7 @@ const viewItem = (id) => {
 
 const {created} = items.find(item => item.id === id)
 
-refs.modalText.textContent = created;
+refs.modalText.textContent = moment(created).format('DD-MM-YYYY HH:mm a');
 // refs.modalImg.src = '';
 modal.show();
 };

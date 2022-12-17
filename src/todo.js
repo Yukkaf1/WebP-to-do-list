@@ -19,14 +19,16 @@ localStorage.setItem('todos', JSON.stringify(playload));
 };
 
 const fatchTodos = () => {
-  try {
-  const data = JSON.parse(localStorage.getItem('todos'));
-  return data || [];
-  } catch(error) {
-    // console.log('cant load todos');
-    return [];
-  };
+  // try {
+  // const data = JSON.parse(localStorage.getItem('todos'));
+  // return data || [];
+  // } catch(error) {
+  //   // console.log('cant load todos');
+  //   return [];
+  // };
   // return data || []; // когда пустой локал
+
+  return fetch('https://639d85681ec9c6657bac04b2.mockapi.io/todos').then(resp => resp.json());
 };
 
 const updateTodos = (playload) => {

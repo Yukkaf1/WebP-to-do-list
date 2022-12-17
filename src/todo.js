@@ -18,7 +18,7 @@ const createTodo = playload => {
 localStorage.setItem('todos', JSON.stringify(playload));
 };
 
-const fatchTodos = () => {
+const fetchTodos = () => {
   // try {
   // const data = JSON.parse(localStorage.getItem('todos'));
   // return data || [];
@@ -28,7 +28,10 @@ const fatchTodos = () => {
   // };
   // return data || []; // когда пустой локал
 
-  return fetch('https://639d85681ec9c6657bac04b2.mockapi.io/todos').then(resp => resp.json());
+  return fetch('https://639d85681ec9c6657bac04b2.mockapi.io/todos')
+  .then(resp => resp.json())
+  .catch(() => []);
+
 };
 
 const updateTodos = (playload) => {
@@ -187,12 +190,11 @@ const handleKezPress = ({code}) => {
 };
 
 const loadData = () => {
-
-  items = fatchTodos();
-  // console.log(fatchTodos());
+items = fetchTodos();
 };
 
 loadData();
+console.log('items', items);
 render();
 
 
